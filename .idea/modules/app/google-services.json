@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "249565117484",
+    "project_id": "peerhelp-6ab07",
+    "storage_bucket": "peerhelp-6ab07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249565117484:android:242c21c7a98f251ef02589",
+        "android_client_info": {
+          "package_name": "io.otabek.peerhelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249565117484-d8vs7bkqbb5pgm8ngijg8q2ev43d25q8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.otabek.peerhelp",
+            "certificate_hash": "4e2d7602255a153e9d8467815b0e38c89d7128cd"
+          }
+        },
+        {
+          "client_id": "249565117484-47kc1390mml99s71eon22cvumvl00sqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBxtNivaud3mnUcQZa7Uo6v7VwjZhnOF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249565117484-47kc1390mml99s71eon22cvumvl00sqt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
