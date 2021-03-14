@@ -24,9 +24,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -48,8 +50,10 @@ public class PostSessionActivity extends AppCompatActivity {
     Map<String, Object> sessionMap = new HashMap<>();
     Boolean isTimeCorrect = false;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     int selectedMinutes;
     private String name, details, link;
+    Date date = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,39 +67,27 @@ public class PostSessionActivity extends AppCompatActivity {
         linkEditText = findViewById(R.id.sessionLinkEditText);
         postBtn = findViewById(R.id.postSessionBtn);
 
+
+        Intent getIntent = getIntent();
+        if (getIntent.getExtras() != null) {
+            name = getIntent.getExtras().getString("name");
+            details = getIntent.getExtras().getString("details");
+            link = getIntent.getExtras().getString("link");
+            String dtStart = getIntent.getExtras().getString("timestamp");
+            Log.d(TAG, "sss"+dtStart+"hjh"+name);
+            nameEditText.setText(name);
+            detailsEditText.setText(details);
+            linkEditText.setText(link);
+            dateEditText.setText(date.toString());
+
+
+        }
+
+
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isInputValid() && isTimeCorrect) {
-                    myCalendar.set(Calendar.HOUR, selectedHours);
-                    Log.d(TAG, "onClick: " + selectedMinutes);
-                    myCalendar.set(Calendar.MINUTE, selectedMinutes);
-                    sessionMap.put("name", name);
-                    sessionMap.put("details", details);
-                    sessionMap.put("link", link);
-                    sessionMap.put("timestamp", myCalendar.getTime());
-                    db.collection("sessions").add(sessionMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Log.d(TAG, "onComplete: done");
-                            ViewDialog alert = new ViewDialog();
-                            Session session = new Session(name, details, link, myCalendar.getTime());
-                            alert.showDialog(PostSessionActivity.this, session);
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                            Log.d(TAG, "onFailure: " + e.getMessage().toString());
-
-                        }
-                    });
-
-
-                } else {
-                    Toast.makeText(PostSessionActivity.this, "Check your Input", Toast.LENGTH_SHORT).show();
-                }
+                sendData(name, details, link, myCalendar.getTime());
             }
         });
 
@@ -169,6 +161,40 @@ public class PostSessionActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void sendData(final String name, final String details, final String link, Date date) {
+        if (isInputValid() && isTimeCorrect) {
+            myCalendar.set(Calendar.HOUR, selectedHours);
+            Log.d(TAG, "onClick: " + selectedMinutes);
+            myCalendar.set(Calendar.MINUTE, selectedMinutes);
+            sessionMap.put("name", name);
+            sessionMap.put("details", details);
+            sessionMap.put("link", link);
+            sessionMap.put("timestamp", date);
+            sessionMap.put("author", auth.getCurrentUser().getUid());
+            db.collection("sessions").add(sessionMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    Log.d(TAG, "onComplete: done");
+                    ViewDialog alert = new ViewDialog();
+                    Session session = new Session(name, details, link, myCalendar.getTime());
+                    alert.showDialog(PostSessionActivity.this, session);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    Log.d(TAG, "onFailure: " + e.getMessage().toString());
+
+                }
+            });
+
+
+        } else {
+            Toast.makeText(PostSessionActivity.this, "Check your Input", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

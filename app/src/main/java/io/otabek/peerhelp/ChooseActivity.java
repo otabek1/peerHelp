@@ -28,4 +28,8 @@ public class ChooseActivity extends AppCompatActivity {
         startActivity(new Intent(ChooseActivity.this, ExploreSessions.class));
 
     }
+
+    public void mySession(View v){
+        startActivity(new Intent(ChooseActivity.this,MySessionsActivity.class));
+    }
 }

@@ -9,17 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MySessionsActivity"></activity>
-        <activity android:name=".ExploreSessions" />
-        <activity android:name=".PostSessionActivity" />
-        <activity android:name=".ChooseActivity" />
-        <activity android:name=".AuthActivity">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MySessionsActivity" />
+        <activity android:name=".ExploreSessions" />
+        <activity android:name=".PostSessionActivity" />
+        <activity android:name=".ChooseActivity" />
+        <activity android:name=".AuthActivity" />
+
     </application>
 
 </manifest>
