@@ -73,7 +73,6 @@ public class PostSessionActivity extends AppCompatActivity {
             details = getIntent.getExtras().getString("details");
             link = getIntent.getExtras().getString("link");
             String dtStart = getIntent.getExtras().getString("timestamp");
-            Log.d(TAG, "sss"+dtStart+"hjh"+name);
             nameEditText.setText(name);
             detailsEditText.setText(details);
             linkEditText.setText(link);
@@ -107,7 +106,6 @@ public class PostSessionActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 updateLabel();
-                Log.d(TAG, "onDateSet: " + dayOfMonth);
             }
 
         };

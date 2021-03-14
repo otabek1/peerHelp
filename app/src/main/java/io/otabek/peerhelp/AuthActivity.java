@@ -58,9 +58,6 @@ public class AuthActivity extends AppCompatActivity {
             Intent chooseIntent = new Intent(AuthActivity.this, ChooseActivity.class);
             startActivity(chooseIntent);
             finish();
-        } else {
-
-            // No user is signed in
         }
 
 
@@ -130,7 +127,7 @@ public class AuthActivity extends AppCompatActivity {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(AuthActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
-//                             updateUI(null);
+
                             }
                         }
                     });

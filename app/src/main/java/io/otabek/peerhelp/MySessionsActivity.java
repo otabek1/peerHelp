@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -63,7 +62,6 @@ public class MySessionsActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentChange documentChange : task.getResult().getDocumentChanges()) {
-                        Log.d(TAG, "onComplete: " + documentChange.getDocument().getData().toString());
                         Session session = documentChange.getDocument().toObject(Session.class);
                         mySessionList.add(session);
                         sessionAdapter.notifyDataSetChanged();
@@ -129,10 +127,8 @@ public class MySessionsActivity extends AppCompatActivity {
                     String shareBody = session.name + "\n" + session.details + "\n" + session.timestamp + "\n" + session.link;
 
                     intent.setType("text/plain");
-                    /*Applying information Subject and Body.*/
                     intent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
                     intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                    /*Fire!*/
                     startActivity(Intent.createChooser(intent, "Share the session"));
                 }
             });
@@ -160,7 +156,6 @@ public class MySessionsActivity extends AppCompatActivity {
                 }
             });
         }
-        Log.d(TAG, "onClick: " + removedId);
 
     }
 
@@ -178,7 +173,6 @@ public class MySessionsActivity extends AppCompatActivity {
                                     editSession(sessionToEdit);
                                 }
                             }
-                            Log.d(TAG, "thhh: " + task.getResult().getDocuments().toString());
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
