@@ -1,13 +1,17 @@
 package io.otabek.peerhelp;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -62,18 +66,21 @@ public class PostSessionActivity extends AppCompatActivity {
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isInputValid()) {
+                if (isInputValid() && isTimeCorrect) {
                     myCalendar.set(Calendar.HOUR, selectedHours);
                     Log.d(TAG, "onClick: " + selectedMinutes);
                     myCalendar.set(Calendar.MINUTE, selectedMinutes);
                     sessionMap.put("name", name);
                     sessionMap.put("details", details);
+                    sessionMap.put("link", link);
                     sessionMap.put("timestamp", myCalendar.getTime());
-//                    Log.d(TAG, "onClick: " + myCalendar.getTime());
                     db.collection("sessions").add(sessionMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             Log.d(TAG, "onComplete: done");
+                            ViewDialog alert = new ViewDialog();
+                            Session session = new Session(name, details, link, myCalendar.getTime());
+                            alert.showDialog(PostSessionActivity.this, session);
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -86,6 +93,8 @@ public class PostSessionActivity extends AppCompatActivity {
                     });
 
 
+                } else {
+                    Toast.makeText(PostSessionActivity.this, "Check your Input", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -195,4 +204,56 @@ public class PostSessionActivity extends AppCompatActivity {
 
         return true;
     }
+
+    public class ViewDialog {
+
+        public void showDialog(Activity activity, final Session session) {
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.posted_dialog);
+
+
+            Button shareBtn = dialog.findViewById(R.id.shareBtn);
+            Button cancelBtn = dialog.findViewById(R.id.cancelBtn);
+
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    nameEditText.setText("");
+                    detailsEditText.setText("");
+                    linkEditText.setText("");
+                    dateEditText.setText("");
+                    timeEditText.setText("");
+                    finish();
+                }
+            });
+
+            shareBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /*Create an ACTION_SEND Intent*/
+                    Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+
+                    String shareSubject = "Hey, Join this session with me";
+                    String shareBody = session.name + "\n" + session.details + "\n" + session.timestamp + "\n" + session.link;
+
+                    intent.setType("text/plain");
+                    /*Applying information Subject and Body.*/
+                    intent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject);
+                    intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                    /*Fire!*/
+                    startActivity(Intent.createChooser(intent, "Share the session"));
+                }
+            });
+
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
+
+        }
+    }
 }
+
+
+
+

@@ -55,7 +55,7 @@
             android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
             android:ems="10"
             android:hint="Details of the Session"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             android:textColorHint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

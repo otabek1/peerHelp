@@ -21,11 +21,11 @@ public class ChooseActivity extends AppCompatActivity {
 
     public void post(View v) {
         startActivity(new Intent(ChooseActivity.this, PostSessionActivity.class));
-        finish();
+
     }
 
     public void explore(View v) {
         startActivity(new Intent(ChooseActivity.this, ExploreSessions.class));
-        finish();
+
     }
 }
