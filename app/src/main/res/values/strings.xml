@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">PeerHelp</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="post_a_session">Post a session</string>
+    <string name="explore_sessions">Explore Sessions</string>
+    <string name="my_sessions">My Sessions</string>
+    <string name="finish">Finish</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="join_the_meeting">Join the meeting</string>
+    <string name="add_to_calendar">Add to calendar</string>
+    <string name="schedule_a_session">Schedule a Session</string>
+    <string name="details_of_the_session">Details of the Session</string>
+    <string name="session_date">Session Date</string>
+    <string name="session_time">Session Time</string>
 </resources>

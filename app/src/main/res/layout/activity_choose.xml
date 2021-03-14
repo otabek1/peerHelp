@@ -16,7 +16,7 @@
         android:background="@drawable/login_edit_background"
         android:fontFamily="@font/montserrat_bold"
         android:onClick="post"
-        android:text="Post a session"
+        android:text="@string/post_a_session"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
         android:background="@drawable/login_edit_background"
         android:fontFamily="@font/montserrat_bold"
         android:onClick="explore"
-        android:text="Explore Sessions"
+        android:text="@string/explore_sessions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postSessionBtn" />
@@ -46,7 +46,7 @@
         android:background="@drawable/login_edit_background"
         android:fontFamily="@font/montserrat_bold"
         android:onClick="mySession"
-        android:text="My Sessions"
+        android:text="@string/my_sessions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/explore" />

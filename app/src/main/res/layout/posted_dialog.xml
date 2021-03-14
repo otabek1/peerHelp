@@ -27,7 +27,7 @@
         android:background="@color/colorPrimaryDark"
         android:fontFamily="@font/montserrat_bold"
         android:paddingHorizontal="30dp"
-        android:text="Share"
+        android:text="@string/share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sessionPostedText" />
@@ -43,7 +43,7 @@
         android:background="@color/colorPrimaryDark"
         android:fontFamily="@font/montserrat_bold"
         android:paddingHorizontal="30dp"
-        android:text="Finish"
+        android:text="@string/finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/shareBtn"
