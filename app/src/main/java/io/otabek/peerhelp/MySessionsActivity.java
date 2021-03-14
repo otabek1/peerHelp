@@ -23,7 +23,6 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.model.Document;
 
 import java.util.ArrayList;
 
@@ -68,6 +67,7 @@ public class MySessionsActivity extends AppCompatActivity {
                         Session session = documentChange.getDocument().toObject(Session.class);
                         mySessionList.add(session);
                         sessionAdapter.notifyDataSetChanged();
+                        showToast();
 
                     } 
                 }
@@ -78,11 +78,15 @@ public class MySessionsActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(MySessionsActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
-        }); 
-        if (mySessionList.isEmpty()){
+        });
+
+
+    }
+
+    private void showToast() {
+        if (mySessionList.isEmpty()) {
             Toast.makeText(this, "You do not have any sessions planned.", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
